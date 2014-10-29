@@ -6,6 +6,7 @@ namespace wind
 	void Engine::add_entity(std::shared_ptr<Entity> entity)
 	{
 		entity->m_id = m_id_counter++;
+		entity->m_owner = this;
 		m_entities.push_back(entity);
 	}
 

@@ -6,4 +6,15 @@ namespace wind
 	{
 		return m_id;
 	}
+
+	const Engine *Entity::get_owner()
+	{
+		return m_owner;
+	}
+
+	Entity::Entity()
+	{
+		m_owner = 0;
+		m_id = 0xDEADBEEF;
+	}
 }
