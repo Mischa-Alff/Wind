@@ -26,6 +26,7 @@ int main()
 	for(auto particle_index=0; particle_index < particles.size(); ++particle_index)
 	{
 		auto& particle = particles[particle_index];
+		particle = std::make_shared<wind::Entity>();
 
 		particle->position.x = (particle_index%static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
 		particle->position.y = (particle_index/static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
