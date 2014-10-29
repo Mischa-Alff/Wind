@@ -8,6 +8,7 @@
 int main()
 {
 	sf::RenderWindow window{{800, 600}, "Windtunnel"};
+	window.setFramerateLimit(1000);
 
 	// Basic particle shape
 	sf::CircleShape particle_shape;
@@ -17,9 +18,9 @@ int main()
 	wind::Engine engine;
 
 	// Create array of physics objects
-	float spacing = 10.f;
+	wind::Vector2u amount{20, 20};
 	std::vector<std::shared_ptr<wind::Entity>> particles;
-	particles.resize((window.getSize().x/(particle_shape.getRadius()+spacing)) * (window.getSize().y/(particle_shape.getRadius()+spacing)));
+	particles.resize(amount.x*amount.y);
 	std::cout<<"num_particles: "<<particles.size()<<std::endl;
 
 	// Assign particle positions
@@ -28,9 +29,10 @@ int main()
 		auto& particle = particles[particle_index];
 		particle = std::make_shared<wind::Entity>();
 
-		particle->position.x = (particle_index%static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
-		particle->position.y = (particle_index/static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
-		particle->position*=(spacing+particle_shape.getRadius());
+		particle->position.x = particle_index%amount.y;
+		particle->position.y = particle_index/amount.x;
+		particle->position.x*= window.getSize().x/amount.x;
+		particle->position.y*= window.getSize().y/amount.y;
 		particle->mass = 10000.f;
 		particle->gravity_exert=true;
 		particle->gravity_affected=true;
@@ -70,7 +72,7 @@ int main()
 
 		window.clear();
 
-		engine.simulate(std::chrono::duration_cast<wind::Engine::StandardDuration>(frame_duration));
+		engine.simulate(wind::Engine::StandardDuration(1.f));
 
 		for(auto& particle : particles)
 		{
