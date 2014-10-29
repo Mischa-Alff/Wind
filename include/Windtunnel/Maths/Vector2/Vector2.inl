@@ -124,35 +124,35 @@ namespace wind
 	template<typename T, typename U>
 	Vector2<T> operator*(const Vector2<T> &lhs, const U &rhs)
 	{
-		return {lhs.x*rhs, lhs.y*rhs};
+		return {lhs.x*static_cast<T>(rhs), lhs.y*static_cast<T>(rhs)};
 	}
 
 	template<typename T, typename U>
 	Vector2<T> operator*(const U &lhs, const Vector2<T> &rhs)
 	{
-		return {lhs*rhs.x, lhs*rhs.y};
+		return {static_cast<T>(lhs)*rhs.x, static_cast<T>(lhs)*rhs.y};
 	}
 
 	template<typename T, typename U>
 	Vector2<T> operator/(const Vector2<T> &lhs, const U &rhs)
 	{
-		return {lhs.x/rhs, lhs.y/rhs};
+		return {lhs.x/static_cast<T>(rhs), lhs.y/static_cast<T>(rhs)};
 	}
 
 	template<typename T, typename U>
 	Vector2<T> &operator/=(Vector2<T> &lhs, const U &rhs)
 	{
-		lhs.x /= rhs;
-		lhs.y /= rhs;
+		lhs.x /= static_cast<T>(rhs);
+		lhs.y /= static_cast<T>(rhs);
 		return lhs;
 	}
 
 	template<typename T, typename U>
 	Vector2<T> &operator*=(Vector2<T> &lhs, const U &rhs)
 	{
-		lhs.x *= rhs;
-		lhs.y *= rhs;
-		return lhs;	
+		lhs.x *= static_cast<T>(rhs);
+		lhs.y *= static_cast<T>(rhs);
+		return lhs;
 	}
 
 	template<typename T>
