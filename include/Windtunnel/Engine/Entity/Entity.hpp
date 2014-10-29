@@ -14,6 +14,7 @@ namespace wind
 		Vector2f position{0.f, 0.f};
 		Vector2f velocity{0.f, 0.f};
 		Vector2f force{0.f, 0.f};
+		float mass{1.f};
 
 		unsigned int get_id();
 	};
