@@ -5,6 +5,7 @@ namespace wind
 {
 	void Engine::add_entity(std::shared_ptr<Entity> entity)
 	{
+		entity->m_id = m_id_counter++;
 		m_entities.push_back(entity);
 	}
 
@@ -23,4 +24,6 @@ namespace wind
 			entity->position += entity->velocity*deltatime.count();
 		}
 	}
+
+	Engine::Engine() : m_id_counter{0} {}
 }
