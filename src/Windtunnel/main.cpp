@@ -1,7 +1,9 @@
 #include <chrono>
+#include <memory>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <Windtunnel/Engine/Entity/Entity.hpp>
+#include <Windtunnel/Engine/Engine/Engine.hpp>
 
 int main()
 {
@@ -12,9 +14,11 @@ int main()
 	particle_shape.setRadius(5.f);
 	particle_shape.setFillColor(sf::Color::Red);
 
+	wind::Engine engine;
+
 	// Create array of physics objects
 	float spacing = 10.f;
-	std::vector<wind::Entity> particles;
+	std::vector<std::shared_ptr<wind::Entity>> particles;
 	particles.resize((window.getSize().x/(particle_shape.getRadius()+spacing)) * (window.getSize().y/(particle_shape.getRadius()+spacing)));
 	std::cout<<"num_particles: "<<particles.size()<<std::endl;
 
@@ -23,12 +27,14 @@ int main()
 	{
 		auto& particle = particles[particle_index];
 
-		particle.position.x = (particle_index%static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
-		particle.position.y = (particle_index/static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
-		particle.position*=(spacing+particle_shape.getRadius());
+		particle->position.x = (particle_index%static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
+		particle->position.y = (particle_index/static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
+		particle->position*=(spacing+particle_shape.getRadius());
 
-		particle.radius_pow2 = particle.radius = particle_shape.getRadius();
-		particle.radius_pow2 *= particle.radius_pow2;
+		particle->radius_pow2 = particle->radius = particle_shape.getRadius();
+		particle->radius_pow2 *= particle->radius_pow2;
+
+		engine.add_entity(particle);
 	}
 
 	// Used for calculating frametimes
@@ -64,8 +70,8 @@ int main()
 		window.clear();
 		for(auto& particle : particles)
 		{
-			particle.position += particle.velocity*frametime_s;
-			particle_shape.setPosition(particle.position.x, particle.position.y);
+			particle->position += particle->velocity*frametime_s;
+			particle_shape.setPosition(particle->position.x, particle->position.y);
 			window.draw(particle_shape);
 		}
 		window.display();
