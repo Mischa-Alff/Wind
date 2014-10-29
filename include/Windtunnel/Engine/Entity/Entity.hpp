@@ -1,3 +1,6 @@
+#ifndef WINDTUNNEL_ENGINE_ENTITY_ENTITY_HPP
+#define WINDTUNNEL_ENGINE_ENTITY_ENTITY_HPP
+
 #include <Windtunnel/Maths/Vector2/Vector2.hpp>
 
 namespace wind
@@ -12,3 +15,5 @@ namespace wind
 		float radius_pow2{1.f};
 	};
 }
+
+#endif
