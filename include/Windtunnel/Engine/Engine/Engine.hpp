@@ -11,6 +11,7 @@ namespace wind
 	class Engine
 	{
 	public:
+		static constexpr float G = 6.67384e-11;
 		using StandardDuration = std::chrono::duration<float>;
 	private:
 		unsigned int m_id_counter;

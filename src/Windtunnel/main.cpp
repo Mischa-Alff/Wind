@@ -31,6 +31,9 @@ int main()
 		particle->position.x = (particle_index%static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
 		particle->position.y = (particle_index/static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
 		particle->position*=(spacing+particle_shape.getRadius());
+		particle->mass = 10000.f;
+		particle->gravity_exert=true;
+		particle->gravity_affected=true;
 
 		engine.add_entity(particle);
 	}

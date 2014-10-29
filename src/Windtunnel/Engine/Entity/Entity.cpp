@@ -1,5 +1,7 @@
 #include <Windtunnel/Engine/Entity/Entity.hpp>
 
+#include <cstddef>
+
 namespace wind
 {
 	unsigned int Entity::get_id()
@@ -14,7 +16,7 @@ namespace wind
 
 	Entity::Entity()
 	{
-		m_owner = 0;
+		m_owner = NULL;
 		m_id = 0xDEADBEEF;
 	}
 }
