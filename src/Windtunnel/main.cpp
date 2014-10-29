@@ -65,9 +65,11 @@ int main()
 		}
 
 		window.clear();
+
+		engine.simulate(std::chrono::duration_cast<wind::Engine::StandardDuration>(frame_duration));
+
 		for(auto& particle : particles)
 		{
-			particle->position += particle->velocity*frametime_s;
 			particle_shape.setPosition(particle->position.x, particle->position.y);
 			window.draw(particle_shape);
 		}
