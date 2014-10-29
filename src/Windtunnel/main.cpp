@@ -31,9 +31,6 @@ int main()
 		particle->position.y = (particle_index/static_cast<int>(window.getSize().x/(particle_shape.getRadius()+spacing)));
 		particle->position*=(spacing+particle_shape.getRadius());
 
-		particle->radius_pow2 = particle->radius = particle_shape.getRadius();
-		particle->radius_pow2 *= particle->radius_pow2;
-
 		engine.add_entity(particle);
 	}
 

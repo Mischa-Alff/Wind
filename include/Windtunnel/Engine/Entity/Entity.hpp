@@ -7,12 +7,15 @@ namespace wind
 {
 	class Entity
 	{
+	private:
+		friend class Engine;
+		unsigned int m_id;
 	public:
 		Vector2f position{0.f, 0.f};
 		Vector2f velocity{0.f, 0.f};
 		Vector2f force{0.f, 0.f};
-		float radius{1.f};
-		float radius_pow2{1.f};
+
+		unsigned int get_id();
 	};
 }
 
