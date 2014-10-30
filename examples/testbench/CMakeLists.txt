@@ -6,10 +6,12 @@ set(EXAMPLE_SRC
 find_package(SFML 2 REQUIRED COMPONENTS graphics window system)
 
 include_directories(${SFML_INCLUDE_DIR})
+link_directories(${CMAKE_BINARY_DIR})
 
 add_executable(${EXAMPLE_NAME} ${EXAMPLE_SRC})
 
 target_link_libraries(${EXAMPLE_NAME} ${SFML_LIBRARIES})
+target_link_libraries(${EXAMPLE_NAME} ${CMAKE_PROJECT_NAME})
 
 if(WIND_INSTALL)
 	set(EXAMPLE_INSTALL_DIR ${WIND_SHARE_DIR}/${EXA_DIR}/${EXAMPLE_NAME})
