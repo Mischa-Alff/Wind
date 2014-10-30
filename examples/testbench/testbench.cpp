@@ -2,8 +2,8 @@
 #include <memory>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <Windtunnel/Engine/Entity/Entity.hpp>
-#include <Windtunnel/Engine/Engine/Engine.hpp>
+#include <Wind/Engine/Entity/Entity.hpp>
+#include <Wind/Engine/Engine/Engine.hpp>
 
 int main()
 {
@@ -72,7 +72,7 @@ int main()
 
 		window.clear();
 
-		engine.simulate(wind::Engine::StandardDuration(1.f));
+		engine.simulate(wind::Engine::StandardDuration(30.f));
 
 		for(auto& particle : particles)
 		{
