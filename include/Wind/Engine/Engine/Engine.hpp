@@ -17,6 +17,8 @@ namespace wind
 		unsigned int m_id_counter;
 		std::vector<std::shared_ptr<Entity>> m_entities;
 	public:
+		bool gravity=true;
+
 		void add_entity(std::shared_ptr<Entity> entity);
 		void remove_entity(std::shared_ptr<Entity> entity);
 

@@ -22,30 +22,35 @@ namespace wind
 		{
 			auto& entity = m_entities[entity_itr];
 
-			// Fundamental Interactions
-			for(auto entity_fund_itr=entity_itr+1; entity_fund_itr < m_entities.size(); ++entity_fund_itr)
+			if(gravity)
 			{
-				auto& entity_fund = m_entities[entity_fund_itr];
-				if(!(  (entity_fund->gravity_exert && entity->gravity_affected) 
-					|| (entity->gravity_exert && entity_fund->gravity_affected)))
+				if(!entity->gravity_affected && !entity->gravity_exert)
 					continue;
+				if(!entity->mass)
+					continue;
+				for(auto entity_fund_itr=entity_itr+1; entity_fund_itr < m_entities.size(); ++entity_fund_itr)
+				{
+					auto& entity_fund = m_entities[entity_fund_itr];
+					if(!entity_fund->mass)
+						continue;
+					if(!(  (entity_fund->gravity_exert && entity->gravity_affected) 
+						|| (entity->gravity_exert && entity_fund->gravity_affected)))
+						continue;
 
-				auto distance_vec = entity->position - entity_fund->position;
-				auto distance_pow2 = distance_vec.x*distance_vec.x + distance_vec.y*distance_vec.y;
+					auto distance_vec = entity->position - entity_fund->position;
+					auto distance_pow2 = distance_vec.x*distance_vec.x + distance_vec.y*distance_vec.y;
 
-				float force = G * (entity->mass*entity_fund->mass)/(distance_pow2);
-				Vector2f direction = (entity_fund->position-entity->position) / sqrt(distance_pow2);
+					float force = G * (entity->mass*entity_fund->mass)/(distance_pow2);
+					Vector2f direction = (entity_fund->position-entity->position) / sqrt(distance_pow2);
 
-				if(entity_fund->gravity_exert && entity->gravity_affected)
-					entity->impulse_force += direction*force;
+					if(entity_fund->gravity_exert && entity->gravity_affected)
+						entity->impulse_force += direction*force;
 
-				if(entity->gravity_exert && entity_fund->gravity_affected)
-					entity_fund->impulse_force += -direction*force;
+					if(entity->gravity_exert && entity_fund->gravity_affected)
+						entity_fund->impulse_force += -direction*force;
+				}
 			}
-		}
 
-		for(auto& entity : m_entities)
-		{
 			Vector2f acceleration = (entity->force+entity->impulse_force) / entity->mass;
 			entity->velocity += acceleration*deltatime.count();
 			entity->position += entity->velocity*deltatime.count();
