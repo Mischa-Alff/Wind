@@ -12,13 +12,13 @@ int main()
 
 	// Basic particle shape
 	sf::CircleShape particle_shape;
-	particle_shape.setRadius(5.f);
+	particle_shape.setRadius(0.75f);
 	particle_shape.setFillColor(sf::Color::Red);
 
 	wind::Engine engine;
 
 	// Create array of physics objects
-	wind::Vector2u amount{20, 20};
+	wind::Vector2u amount{30, 30};
 	std::vector<std::shared_ptr<wind::Entity>> particles;
 	particles.resize(amount.x*amount.y);
 	std::cout<<"num_particles: "<<particles.size()<<std::endl;
@@ -65,6 +65,15 @@ int main()
 			case sf::Event::Closed:
 				window.close();
 				break;
+			case sf::Event::KeyReleased:
+				switch(event.key.code)
+				{
+				case sf::Keyboard::G:
+					engine.gravity = !engine.gravity;
+					break;
+				default:
+					break;
+				}
 			default:
 				break;
 			}
