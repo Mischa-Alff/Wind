@@ -1,8 +1,8 @@
-#ifndef WINDTUNNEL_ENGINE_ENTITY_ENTITY_HPP
-#define WINDTUNNEL_ENGINE_ENTITY_ENTITY_HPP
+#ifndef WIND_ENGINE_ENTITY_ENTITY_HPP
+#define WIND_ENGINE_ENTITY_ENTITY_HPP
 
 #include <cstdint>
-#include <Windtunnel/Maths/Vector2/Vector2.hpp>
+#include <Wind/Maths/Vector2/Vector2.hpp>
 
 namespace wind
 {

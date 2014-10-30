@@ -1,5 +1,5 @@
 cmake_minimum_required( VERSION 2.8 )
-project( Windtunnel )
+project( Wind )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_MODULE_PATH}")
 
@@ -7,8 +7,8 @@ option( WIND_BUILD_SHARED_LIBS "Build shared libraries?"   OFF )
 option( WIND_BUILD_EXAMPLES    "Build examples?"           OFF )
 option( WIND_INSTALL           "Generate Install target? " ON  )
 
-set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type." FORCE )
-SET(CMAKE_DEBUG_POSTFIX "d")
+set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type." )
+set( CMAKE_DEBUG_POSTFIX "-d" )
 
 set( WIND_SHARE_DIR share/${CMAKE_PROJECT_NAME} )
 if(WIN32)

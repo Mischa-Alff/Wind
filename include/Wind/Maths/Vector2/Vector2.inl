@@ -1,6 +1,6 @@
-#ifndef WINDTUNNEL_MATHS_VECTOR2_VECTOR2_INL
-#define WINDTUNNEL_MATHS_VECTOR2_VECTOR2_INL
-#include <Windtunnel/Maths/Vector2/Vector2.hpp>
+#ifndef WIND_MATHS_VECTOR2_VECTOR2_INL
+#define WIND_MATHS_VECTOR2_VECTOR2_INL
+#include <Wind/Maths/Vector2/Vector2.hpp>
 
 namespace wind
 {

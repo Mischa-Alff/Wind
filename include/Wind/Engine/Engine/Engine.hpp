@@ -1,10 +1,10 @@
-#ifndef WINDTUNNEL_ENGINE_ENGINE_ENGINE_HPP
-#define WINDTUNNEL_ENGINE_ENGINE_ENGINE_HPP
+#ifndef WIND_ENGINE_ENGINE_ENGINE_HPP
+#define WIND_ENGINE_ENGINE_ENGINE_HPP
 
 #include <chrono>
 #include <vector>
 #include <memory>
-#include <Windtunnel/Engine/Entity/Entity.hpp>
+#include <Wind/Engine/Entity/Entity.hpp>
 
 namespace wind
 {

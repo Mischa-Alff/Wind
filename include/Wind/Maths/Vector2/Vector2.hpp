@@ -1,5 +1,5 @@
-#ifndef WINDTUNNEL_MATHS_VECTOR2_VECTOR2_HPP
-#define WINDTUNNEL_MATHS_VECTOR2_VECTOR2_HPP
+#ifndef WIND_MATHS_VECTOR2_VECTOR2_HPP
+#define WIND_MATHS_VECTOR2_VECTOR2_HPP
 
 namespace wind
 {
@@ -66,7 +66,7 @@ namespace wind
 	bool operator!=(const Vector2<T> &lhs, const Vector2<T> &rhs);
 }
 
-#include <Windtunnel/Maths/Vector2/Vector2.inl>
+#include <Wind/Maths/Vector2/Vector2.inl>
 
 namespace wind
 {
