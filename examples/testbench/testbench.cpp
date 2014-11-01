@@ -2,6 +2,9 @@
 #include <memory>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <Wind/Engine/Body/Body.hpp>
+#include <Wind/Engine/Shape/Shape.hpp>
+#include <Wind/Engine/Shape/CircleShape.hpp>
 #include <Wind/Engine/Entity/Entity.hpp>
 #include <Wind/Engine/Engine/Engine.hpp>
 
@@ -11,17 +14,22 @@ int main()
 	window.setFramerateLimit(1000);
 
 	// Basic particle shape
-	sf::CircleShape particle_shape;
-	particle_shape.setRadius(0.75f);
-	particle_shape.setFillColor(sf::Color::Red);
+	sf::CircleShape particle_drawable;
+	particle_drawable.setRadius(0.75f);
+	particle_drawable.setFillColor(sf::Color::Red);
 
 	wind::Engine engine;
 
 	// Create array of physics objects
-	wind::Vector2u amount{30, 30};
+	wind::Vector2u amount{40, 40};
 	std::vector<std::shared_ptr<wind::Entity>> particles;
 	particles.resize(amount.x*amount.y);
 	std::cout<<"num_particles: "<<particles.size()<<std::endl;
+
+	// Create particle shapes and bodies
+	std::shared_ptr<wind::Body> particle_body=std::make_shared<wind::Body>();
+	std::shared_ptr<wind::Shape> particle_shape=std::make_shared<wind::CircleShape>(0.75f);
+	particle_body->add_shape(particle_shape);
 
 	// Assign particle positions
 	for(auto particle_index=0; particle_index < particles.size(); ++particle_index)
@@ -36,6 +44,8 @@ int main()
 		particle->mass = 10000.f;
 		particle->gravity_exert=true;
 		particle->gravity_affected=true;
+
+		particle->set_body(particle_body);
 
 		engine.add_entity(particle);
 	}
@@ -85,8 +95,8 @@ int main()
 
 		for(auto& particle : particles)
 		{
-			particle_shape.setPosition(particle->position.x, particle->position.y);
-			window.draw(particle_shape);
+			particle_drawable.setPosition(particle->position.x, particle->position.y);
+			window.draw(particle_drawable);
 		}
 		window.display();
 
