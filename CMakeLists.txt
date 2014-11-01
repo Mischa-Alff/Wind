@@ -96,9 +96,18 @@ set(EXA_DIR "examples")
 set(
 	SOURCES
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Engine/Engine.hpp
-	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Entity/Entity.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Engine/Engine.cpp
+
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Entity/Entity.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Entity/Entity.cpp
+
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Body/Body.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Body/Body.cpp
+
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.cpp
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/CircleShape.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/CircleShape.cpp
 
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Maths/Vector2.hpp
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Maths/Vector2/Vector2.hpp

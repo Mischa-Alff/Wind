@@ -2,7 +2,9 @@
 #define WIND_ENGINE_ENTITY_ENTITY_HPP
 
 #include <cstdint>
-#include <Wind/Maths/Vector2/Vector2.hpp>
+#include <memory>
+#include <Wind/Engine/Body/Body.hpp>
+#include <Wind/Maths/Vector2.hpp>
 
 namespace wind
 {
@@ -13,6 +15,7 @@ namespace wind
 		friend class Engine;
 		unsigned int m_id;
 		const Engine *m_owner;
+		std::shared_ptr<Body> m_body;
 
 	public:
 		Vector2f position{0.f, 0.f};
@@ -26,6 +29,9 @@ namespace wind
 
 		unsigned int get_id();
 		const Engine *get_owner();
+
+		void set_body(std::shared_ptr<Body> body);
+		std::shared_ptr<Body> get_body();
 
 		Entity();
 	};
