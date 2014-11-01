@@ -13,6 +13,9 @@ namespace wind
 		explicit Vector2(const Vector2<U> &other);
 		template<typename U>
 		operator Vector2<U>();
+		T dot(const Vector2<T> &other) const;
+		T cross(const Vector2<T> &other) const;
+		Vector2<T> cross() const;
 
 		T x,y;
 	};

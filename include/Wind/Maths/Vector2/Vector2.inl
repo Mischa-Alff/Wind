@@ -11,6 +11,24 @@ namespace wind
 	Vector2<T>::Vector2(const T &_x, const T &_y):x(_x), y(_y){}
 
 	template<typename T>
+	T Vector2<T>::dot(const Vector2<T> &other) const
+	{
+		return x*other.x + y*other.y;
+	}
+
+	template<typename T>
+	T Vector2<T>::cross(const Vector2<T> &other) const
+	{
+		return x*other.y - y*other.x;
+	}
+
+	template<typename T>
+	Vector2<T> Vector2<T>::cross() const
+	{
+		return {y, -x};
+	}
+
+	template<typename T>
 	template<typename U>
 	Vector2<T>::Vector2(const Vector2<U> &other)
 	{
