@@ -30,4 +30,6 @@ namespace wind
 
 }
 
+#include <Wind/Engine/Shape/CircleShape.hpp>
+
 #endif
