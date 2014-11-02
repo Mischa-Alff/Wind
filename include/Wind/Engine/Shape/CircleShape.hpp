@@ -7,8 +7,14 @@ namespace wind
 {
 	class CircleShape : public Shape
 	{
+	private:
+		AABB m_cache_AABB;
 	public:
 		float radius;
+
+		inline AABB get_AABB();
+		inline AABB get_AABB(const Vector2f &position);
+
 		CircleShape(float radius=0.f);
 	};
 }
