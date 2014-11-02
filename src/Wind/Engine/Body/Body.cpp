@@ -3,7 +3,7 @@
 
 namespace wind
 {
-	std::vector<std::shared_ptr<Shape>> Body::get_shapes()
+	const std::vector<std::shared_ptr<Shape>> &Body::get_shapes()
 	{
 		return m_shapes;
 	}

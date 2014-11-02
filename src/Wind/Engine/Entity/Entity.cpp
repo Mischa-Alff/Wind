@@ -19,7 +19,7 @@ namespace wind
 		m_body = body;
 	}
 
-	std::shared_ptr<Body> Entity::get_body()
+	const std::shared_ptr<Body> &Entity::get_body()
 	{
 		return m_body;
 	}

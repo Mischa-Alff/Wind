@@ -31,7 +31,7 @@ namespace wind
 		const Engine *get_owner();
 
 		void set_body(std::shared_ptr<Body> body);
-		std::shared_ptr<Body> get_body();
+		const std::shared_ptr<Body> &get_body();
 
 		Entity();
 	};

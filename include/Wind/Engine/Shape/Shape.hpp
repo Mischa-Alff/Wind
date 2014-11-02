@@ -22,8 +22,8 @@ namespace wind
 	public:
 		const Type &type() const;
 
-		inline virtual AABB get_AABB() = 0;
-		inline virtual AABB get_AABB(const Vector2f &position) = 0;
+		virtual const AABB &get_AABB() = 0;
+		virtual const AABB get_AABB(const Vector2f &position) = 0;
 
 		Shape();
 	};

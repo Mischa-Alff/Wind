@@ -14,7 +14,7 @@ namespace wind
 
 	public:
 
-		std::vector<std::shared_ptr<Shape>> get_shapes();
+		const std::vector<std::shared_ptr<Shape>> &get_shapes();
 		void set_shapes(std::vector<std::shared_ptr<Shape>> shapes);
 
 		void add_shape(std::shared_ptr<Shape> shape);

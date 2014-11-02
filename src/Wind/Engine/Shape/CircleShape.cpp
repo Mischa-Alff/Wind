@@ -2,7 +2,7 @@
 
 namespace wind
 {
-	inline AABB CircleShape::get_AABB()
+	inline const AABB &CircleShape::get_AABB()
 	{
 		if(radius != m_cache_AABB.half_size.x)
 		{
@@ -11,7 +11,7 @@ namespace wind
 		return m_cache_AABB;
 	}
 
-	inline AABB CircleShape::get_AABB(const Vector2f &position)
+	inline const AABB CircleShape::get_AABB(const Vector2f &position)
 	{
 		AABB a = get_AABB();
 		a.center=position;

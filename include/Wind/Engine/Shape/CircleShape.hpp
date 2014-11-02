@@ -12,8 +12,8 @@ namespace wind
 	public:
 		float radius;
 
-		inline AABB get_AABB();
-		inline AABB get_AABB(const Vector2f &position);
+		const AABB &get_AABB();
+		const AABB get_AABB(const Vector2f &position);
 
 		CircleShape(float radius=0.f);
 	};
