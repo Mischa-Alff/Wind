@@ -104,6 +104,9 @@ set(
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Body/Body.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Body/Body.cpp
 
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/AABB/AABB.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/AABB/AABB.cpp
+
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.cpp
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/CircleShape.hpp
