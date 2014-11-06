@@ -9,6 +9,7 @@ namespace wind
 	{
 	private:
 		AABB m_cache_AABB;
+		AABB m_cache_pos_AABB;
 	public:
 		float radius;
 

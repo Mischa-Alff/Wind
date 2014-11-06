@@ -4,7 +4,7 @@
 
 namespace wind
 {
-	unsigned int Entity::get_id()
+	const unsigned int &Entity::get_id()
 	{
 		return m_id;
 	}

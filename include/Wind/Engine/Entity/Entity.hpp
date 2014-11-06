@@ -22,12 +22,13 @@ namespace wind
 		Vector2f velocity{0.f, 0.f};
 		Vector2f force{0.f, 0.f};
 		Vector2f impulse_force{0.f, 0.f};
+		Vector2f minimum_translation{0.f, 0.f};
 		float mass{1.f};
 
 		bool gravity_exert{false};
 		bool gravity_affected{false};
 
-		unsigned int get_id();
+		const unsigned int &get_id();
 		const Engine *get_owner();
 
 		void set_body(std::shared_ptr<Body> body);

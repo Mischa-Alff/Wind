@@ -1,5 +1,6 @@
 #include <Wind/Engine/Engine/Engine.hpp>
 #include <algorithm>
+#include <iostream>
 
 namespace wind
 {
@@ -91,16 +92,63 @@ namespace wind
 			b->impulse_force += -direction*force;
 	}
 
+#include <iostream>
 
 	void Engine::apply_collisions()
 	{
-		for(auto it_a=m_entities.begin(); it_a != m_entities.end(); ++it_a)
+		if(!use_quadtree)
 		{
-			auto &a = *it_a;
-			for(auto it_b=it_a+1; it_b != m_entities.end(); ++it_b)
+			for(auto it_a=m_entities.begin(); it_a != m_entities.end(); ++it_a)
 			{
-				auto &b = *it_b;
-				apply_collisions(a, b);
+				auto &a = *it_a;
+				for(auto it_b=it_a+1; it_b != m_entities.end(); ++it_b)
+				{
+					auto &b = *it_b;
+					apply_collisions(a, b);
+				}
+			}
+		}
+		else
+		{
+			for(auto it_a=m_entities.begin(); it_a != m_entities.end(); ++it_a)
+			{
+				auto &a = *it_a;
+				AABB rect = a->get_body()->get_shapes()[0]->get_AABB(a->position);
+				std::vector<std::shared_ptr<Entity>> match;
+				m_quadtree->retrieve(match, rect, true);
+				auto *node = &m_quadtree->node(rect);
+				// std::cout<<match.size()<<std::endl;
+				bool no_match=false;
+				for(auto it_b=match.begin(); it_b != match.end();)
+				{
+					auto &b = *it_b;
+					if(a->get_id() < b->get_id())
+					{
+						if(apply_collisions(a, b))
+						{
+							// auto new_rect  = a->get_body()->get_shapes()[0]->get_AABB(a->position);
+							// auto *new_node = &m_quadtree->node(new_rect);
+							// if(node != new_node)
+							// {
+							// 	// if(!no_match)
+							// 	// {	
+							// 		node=new_node;
+							// 		no_match=true;
+							// 		rect=new_rect;
+							// 		match.clear();
+							// 		m_quadtree->retrieve(match, rect);
+							// 		it_b = match.begin();
+							// 		continue;
+							// 	// }
+							// 	// else
+							// 	// {
+							// 	// 	std::cout<<"No match!!!";
+							// 	// }
+							// }
+						}
+					}
+					++it_b;
+				}
 			}
 		}
 	}
@@ -114,10 +162,11 @@ namespace wind
 		}
 	}
 
-	void Engine::apply_collisions(std::shared_ptr<Entity> &a, std::shared_ptr<Entity> &b)
+	bool Engine::apply_collisions(std::shared_ptr<Entity> &a, std::shared_ptr<Entity> &b)
 	{
 		if(!(a->get_body() && b->get_body()))
-			return;
+			return false;
+		bool collision = false;
 		for(auto &shape_a : a->get_body()->get_shapes())
 		{
 			for(auto &shape_b : b->get_body()->get_shapes())
@@ -140,14 +189,16 @@ namespace wind
 							{
 								float tmp_len = std::sqrt(tmp_len_pow2);
 								float minimum_translation_distance = sum_rad - tmp_len;
+								minimum_translation_distance += minimum_translation_distance*0.01;
 								float vel_len = std::sqrt(a->velocity.x*a->velocity.x + a->velocity.y*a->velocity.y);
 								Vector2f unit_vel = a->velocity/vel_len;
-								a->position -= unit_vel * minimum_translation_distance;
+								a->minimum_translation -= unit_vel * minimum_translation_distance;
 								tmp_len_pow2 = sum_rad_pow2;
 							}
 
 							if(tmp_len_pow2 <= sum_rad_pow2)
 							{
+								//std::cout<<"COLLISION!!"<<std::endl;
 								Vector2f old_velocity = a->velocity;
 								Vector2f old_velocity_col = b->velocity;
 
@@ -156,12 +207,15 @@ namespace wind
 
 								b->velocity = ((b->mass - a->mass)/(a->mass + b->mass)*old_velocity_col
 								             + (2.0*a->mass)/(a->mass+b->mass)*old_velocity);
+
+								collision = true;
 							}
 						}
 					}
 				}
 			}
 		}
+		return collision;
 	}
 
 
@@ -173,23 +227,36 @@ namespace wind
 
 	void Engine::integrate(std::shared_ptr<Entity> &entity, const StandardDuration &deltatime)
 	{
+		entity->position += entity->minimum_translation;
 		Vector2f acceleration = (entity->force+entity->impulse_force) / entity->mass;
 		entity->velocity += acceleration*deltatime.count();
 		entity->position += entity->velocity*deltatime.count();
-		entity->impulse_force = {0.f, 0.f};
+		entity->minimum_translation = entity->impulse_force = {0.f, 0.f};
 	}
 
+	void Engine::set_quadtree(std::shared_ptr<QuadTree> tree)
+	{
+		m_quadtree = tree;
+	}
 
 	void Engine::simulate(const StandardDuration deltatime)
 	{
+		if(use_quadtree)
+			m_quadtree->clear();
 		for(auto it_a = m_entities.begin(); it_a != m_entities.end(); ++it_a)
 		{
 			auto &a = *it_a;
 			if(gravity)
 				apply_gravity(a, it_a+1, true);
 			integrate(a, deltatime);
-			apply_collisions(a, it_a+1);
+			// if(!use_quadtree)
+			// 	apply_collisions(a, it_a+1);
+			// else
+			if(use_quadtree)
+				m_quadtree->insert(a);
 		}
+		// if(use_quadtree)
+			apply_collisions();
 	}
 
 	Engine::Engine() : m_id_counter{0} {}
