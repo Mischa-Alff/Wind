@@ -116,37 +116,11 @@ namespace wind
 				AABB rect = a->get_body()->get_shapes()[0]->get_AABB(a->position);
 				std::vector<std::shared_ptr<Entity>> match;
 				m_quadtree->retrieve(match, rect, true);
-				auto *node = &m_quadtree->node(rect);
-				// std::cout<<match.size()<<std::endl;
-				bool no_match=false;
 				for(auto it_b=match.begin(); it_b != match.end();)
 				{
 					auto &b = *it_b;
 					if(a->get_id() < b->get_id())
-					{
-						if(apply_collisions(a, b))
-						{
-							// auto new_rect  = a->get_body()->get_shapes()[0]->get_AABB(a->position);
-							// auto *new_node = &m_quadtree->node(new_rect);
-							// if(node != new_node)
-							// {
-							// 	// if(!no_match)
-							// 	// {	
-							// 		node=new_node;
-							// 		no_match=true;
-							// 		rect=new_rect;
-							// 		match.clear();
-							// 		m_quadtree->retrieve(match, rect);
-							// 		it_b = match.begin();
-							// 		continue;
-							// 	// }
-							// 	// else
-							// 	// {
-							// 	// 	std::cout<<"No match!!!";
-							// 	// }
-							// }
-						}
-					}
+						apply_collisions(a, b);
 					++it_b;
 				}
 			}
@@ -198,7 +172,6 @@ namespace wind
 
 							if(tmp_len_pow2 <= sum_rad_pow2)
 							{
-								//std::cout<<"COLLISION!!"<<std::endl;
 								Vector2f old_velocity = a->velocity;
 								Vector2f old_velocity_col = b->velocity;
 
@@ -249,14 +222,10 @@ namespace wind
 			if(gravity)
 				apply_gravity(a, it_a+1, true);
 			integrate(a, deltatime);
-			// if(!use_quadtree)
-			// 	apply_collisions(a, it_a+1);
-			// else
 			if(use_quadtree)
 				m_quadtree->insert(a);
 		}
-		// if(use_quadtree)
-			apply_collisions();
+		apply_collisions();
 	}
 
 	Engine::Engine() : m_id_counter{0} {}

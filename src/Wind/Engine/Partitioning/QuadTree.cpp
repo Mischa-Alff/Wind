@@ -41,13 +41,6 @@ namespace wind
 		m_nodes[1].m_index=1;
 		m_nodes[2].m_index=2;
 		m_nodes[3].m_index=3;
-
-		// for(int i=0;i<4;++i)
-		// 	std::cout<<i<<": center: "   <<m_nodes[i].m_bounds.center.x   <<", "<<m_nodes[i].m_bounds.center.y
-		// 	         <<   "; half_size: "<<m_nodes[i].m_bounds.half_size.x<<", "<<m_nodes[i].m_bounds.half_size.x<<std::endl
-		// 	         <<   "  depth: "<<m_nodes[i].m_depth<<"; max_depth: "<<m_nodes[i].max_depth<<"; max_elements_before_split: "<<m_nodes[i].max_elements_before_split
-		// 	         <<   std::endl;
-
 	}
 
 	int QuadTree::get_index(const AABB &rect) const
