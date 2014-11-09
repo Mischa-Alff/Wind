@@ -101,6 +101,9 @@ set(
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Entity/Entity.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Entity/Entity.cpp
 
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Integration/Euler.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Integration/Euler.cpp
+
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Body/Body.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Body/Body.cpp
 

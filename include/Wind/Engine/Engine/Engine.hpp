@@ -14,10 +14,12 @@ namespace wind
 	public:
 		static constexpr float G = 6.67384e-11;
 		using StandardDuration = std::chrono::duration<float>;
+		using IntegrationFunction = std::function<void(Entity&, Engine::StandardDuration)>;
 	private:
 		unsigned int m_id_counter;
 		std::vector<std::shared_ptr<Entity>> m_entities;
 		std::shared_ptr<QuadTree> m_quadtree;
+		IntegrationFunction m_integration_func;
 
 		void apply_gravity();
 		void apply_gravity(std::shared_ptr<Entity> &a, bool both=false);
@@ -39,6 +41,8 @@ namespace wind
 		void remove_entity(std::shared_ptr<Entity> entity);
 
 		void set_quadtree(std::shared_ptr<QuadTree> tree);
+
+		void set_integrator(IntegrationFunction &func);
 
 		void simulate(const StandardDuration deltatime);
 

@@ -1,6 +1,8 @@
 #include <Wind/Engine/Engine/Engine.hpp>
 #include <algorithm>
 #include <iostream>
+#include <Wind/Engine/Integration/Euler.hpp>
+
 
 namespace wind
 {
@@ -200,16 +202,22 @@ namespace wind
 
 	void Engine::integrate(std::shared_ptr<Entity> &entity, const StandardDuration &deltatime)
 	{
-		entity->position += entity->minimum_translation;
-		Vector2f acceleration = (entity->force+entity->impulse_force) / entity->mass;
-		entity->velocity += acceleration*deltatime.count();
-		entity->position += entity->velocity*deltatime.count();
-		entity->minimum_translation = entity->impulse_force = {0.f, 0.f};
+		// entity->position += entity->minimum_translation;
+		// Vector2f acceleration = (entity->force+entity->impulse_force) / entity->mass;
+		// entity->velocity += acceleration*deltatime.count();
+		// entity->position += entity->velocity*deltatime.count();
+		// entity->minimum_translation = entity->impulse_force = {0.f, 0.f};
+		m_integration_func(*entity, deltatime);
 	}
 
 	void Engine::set_quadtree(std::shared_ptr<QuadTree> tree)
 	{
 		m_quadtree = tree;
+	}
+
+	void Engine::set_integrator(IntegrationFunction &func)
+	{
+		m_integration_func = func;
 	}
 
 	void Engine::simulate(const StandardDuration deltatime)
@@ -228,5 +236,5 @@ namespace wind
 		apply_collisions();
 	}
 
-	Engine::Engine() : m_id_counter{0} {}
+	Engine::Engine() : m_id_counter{0}, m_integration_func{Integrators::Euler} {}
 }
