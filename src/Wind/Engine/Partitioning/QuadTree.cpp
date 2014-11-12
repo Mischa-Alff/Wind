@@ -7,6 +7,7 @@ namespace wind
 	void QuadTree::clear()
 	{
 		m_entities.clear();
+		m_entities_outside.clear();
 
 		if(m_nodes != nullptr)
 		{
@@ -75,6 +76,14 @@ namespace wind
 				m_nodes[index].insert(entity);
 				return;
 			}
+			else
+			{
+				if(!m_bounds.contains(entity->get_body()->get_shapes()[0]->get_AABB(entity->position)))
+				{
+					m_entities_outside.push_back(entity);
+					return;
+				}
+			}
 		}
 
 		m_entities.push_back(entity);
@@ -113,6 +122,11 @@ namespace wind
 		}
 		else if(index == -1)
 		{
+			if(!m_bounds.contains(test))
+			{
+				match.insert(match.end(), m_entities_outside.begin(), m_entities_outside.end());
+				return;
+			}
 			get_entities_recursive(match);	
 		}
 

@@ -16,6 +16,7 @@ namespace wind
 		private:
 			int m_depth;
 			std::vector<std::shared_ptr<Entity>> m_entities;
+			std::vector<std::shared_ptr<Entity>> m_entities_outside;
 			AABB m_bounds;
 			Vector2f m_tolerances;
 			QuadTree *m_nodes;
