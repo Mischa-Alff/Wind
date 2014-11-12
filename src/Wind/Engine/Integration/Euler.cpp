@@ -6,8 +6,9 @@ namespace wind
 	{
 		e.position += e.minimum_translation;
 		Vector2f acceleration = (e.force+e.impulse_force) / e.mass;
-		e.velocity += acceleration*dt.count();
+		e.velocity += acceleration*dt.count()*0.5;
 		e.position += e.velocity*dt.count();
+		e.velocity += acceleration*dt.count()*0.5;
 		e.minimum_translation = e.impulse_force = {0.f, 0.f};
 	}
 }
