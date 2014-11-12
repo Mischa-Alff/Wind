@@ -8,6 +8,8 @@
 #include <Wind/Engine/Entity/Entity.hpp>
 #include <Wind/Engine/Engine/Engine.hpp>
 #include <Wind/Engine/Partitioning/QuadTree.hpp>
+#include <Wind/Engine/Integration/RK4.hpp>
+#include <Wind/Engine/Integration/Euler.hpp>
 
 void draw_quadtree(sf::RenderWindow &window, const wind::QuadTree *tree);
 
@@ -32,6 +34,8 @@ int main()
 	quadtree->max_elements_before_split = 10;
 
 	wind::Engine engine;
+
+	engine.set_integrator(wind::Integrators::RK4);
 
 	bool render_quadtree=true;
 	engine.use_quadtree = true;
