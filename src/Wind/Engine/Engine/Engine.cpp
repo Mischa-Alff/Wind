@@ -117,7 +117,7 @@ namespace wind
 				auto &a = *it_a;
 				AABB rect = a->get_body()->get_shapes()[0]->get_AABB(a->position);
 				std::vector<std::shared_ptr<Entity>> match;
-				m_quadtree->retrieve(match, rect, true);
+				m_quadtree->retrieve(match, rect);
 				for(auto it_b=match.begin(); it_b != match.end();)
 				{
 					auto &b = *it_b;

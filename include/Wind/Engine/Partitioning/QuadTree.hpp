@@ -13,6 +13,7 @@ namespace wind
 		public:
 			unsigned int max_elements_before_split;
 			unsigned int max_depth;
+			bool adjacent=false;
 		private:
 			int m_depth;
 			std::vector<std::shared_ptr<Entity>> m_entities;
@@ -30,7 +31,7 @@ namespace wind
 			void clear();
 			void insert(std::shared_ptr<Entity> &rect);
 			const QuadTree &node(const AABB &entity) const;
-			void retrieve(std::vector<std::shared_ptr<Entity>> &match, const AABB &test, bool adjacent=false) const;
+			void retrieve(std::vector<std::shared_ptr<Entity>> &match, const AABB &test) const;
 			const QuadTree *get_nodes() const;
 			const AABB &get_bounds() const;
 			const int get_depth() const;

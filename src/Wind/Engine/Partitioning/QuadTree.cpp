@@ -110,7 +110,7 @@ namespace wind
 		}
 	}
 
-	void QuadTree::retrieve(std::vector<std::shared_ptr<Entity> > &match, const AABB &test, bool adjacent) const
+	void QuadTree::retrieve(std::vector<std::shared_ptr<Entity> > &match, const AABB &test) const
 	{
 		AABB rect = test;
 		rect.half_size*=2;
