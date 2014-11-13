@@ -113,6 +113,7 @@ set(
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/AABB/AABB.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/AABB/AABB.cpp
 
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/Partitioning.hpp
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/QuadTree.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/QuadTree.cpp
 

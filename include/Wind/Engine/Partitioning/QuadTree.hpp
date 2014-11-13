@@ -5,10 +5,11 @@
 #include <memory>
 #include <Wind/Engine/Entity/Entity.hpp>
 #include <Wind/Engine/AABB/AABB.hpp>
+#include <Wind/Engine/Partitioning/Partitioning.hpp>
 
 namespace wind
 {
-	class QuadTree
+	class QuadTree : public Partition
 	{
 		public:
 			unsigned int max_elements_before_split;
@@ -29,7 +30,7 @@ namespace wind
 
 		public:
 			void clear();
-			void insert(std::shared_ptr<Entity> &rect);
+			void insert(std::shared_ptr<Entity> &entity);
 			const QuadTree &node(const AABB &entity) const;
 			void retrieve(std::vector<std::shared_ptr<Entity>> &match, const AABB &test) const;
 			const QuadTree *get_nodes() const;

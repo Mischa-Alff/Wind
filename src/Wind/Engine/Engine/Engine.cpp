@@ -98,7 +98,7 @@ namespace wind
 
 	void Engine::apply_collisions()
 	{
-		if(!use_quadtree)
+		if(!use_spatial_partitioning)
 		{
 			for(auto it_a=m_entities.begin(); it_a != m_entities.end(); ++it_a)
 			{
@@ -117,7 +117,7 @@ namespace wind
 				auto &a = *it_a;
 				AABB rect = a->get_body()->get_shapes()[0]->get_AABB(a->position);
 				std::vector<std::shared_ptr<Entity>> match;
-				m_quadtree->retrieve(match, rect);
+				m_partition->retrieve(match, rect);
 				for(auto it_b=match.begin(); it_b != match.end();)
 				{
 					auto &b = *it_b;
@@ -210,9 +210,9 @@ namespace wind
 		m_integration_func(*entity, deltatime);
 	}
 
-	void Engine::set_quadtree(std::shared_ptr<QuadTree> tree)
+	void Engine::set_quadtree(std::shared_ptr<Partition> tree)
 	{
-		m_quadtree = tree;
+		m_partition = tree;
 	}
 
 	void Engine::set_integrator(IntegrationFunction &func)
@@ -222,16 +222,16 @@ namespace wind
 
 	void Engine::simulate(const StandardDuration deltatime)
 	{
-		if(use_quadtree)
-			m_quadtree->clear();
+		if(use_spatial_partitioning)
+			m_partition->clear();
 		for(auto it_a = m_entities.begin(); it_a != m_entities.end(); ++it_a)
 		{
 			auto &a = *it_a;
 			if(gravity)
 				apply_gravity(a, it_a+1, true);
 			integrate(a, deltatime);
-			if(use_quadtree)
-				m_quadtree->insert(a);
+			if(use_spatial_partitioning)
+				m_partition->insert(a);
 		}
 		apply_collisions();
 	}

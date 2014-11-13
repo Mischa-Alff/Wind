@@ -18,7 +18,7 @@ namespace wind
 	private:
 		unsigned int m_id_counter;
 		std::vector<std::shared_ptr<Entity>> m_entities;
-		std::shared_ptr<QuadTree> m_quadtree;
+		std::shared_ptr<Partition> m_partition;
 		IntegrationFunction m_integration_func;
 
 		void apply_gravity();
@@ -35,12 +35,12 @@ namespace wind
 
 	public:
 		bool gravity=true;
-		bool use_quadtree=false;
+		bool use_spatial_partitioning=false;
 
 		void add_entity(std::shared_ptr<Entity> entity);
 		void remove_entity(std::shared_ptr<Entity> entity);
 
-		void set_quadtree(std::shared_ptr<QuadTree> tree);
+		void set_quadtree(std::shared_ptr<Partition> tree);
 
 		void set_integrator(IntegrationFunction &func);
 
