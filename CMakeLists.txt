@@ -15,7 +15,7 @@ option( WIND_USE_SSE2          "Use SSE2 CPU optimizations?"                    
 option( WIND_USE_SSE           "Use SSE CPU optimizations?"                             OFF )
 option( WIND_USE_NATIVE        "Use GCC native optimizations? (Only on GCC/Similar)"    OFF )
 
-set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type." )
+set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type." FORCE )
 set( CMAKE_DEBUG_POSTFIX "-d" )
 
 set( WIND_SHARE_DIR share/${CMAKE_PROJECT_NAME} )
