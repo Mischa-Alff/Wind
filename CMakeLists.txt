@@ -15,7 +15,7 @@ option( WIND_USE_SSE2          "Use SSE2 CPU optimizations?"                    
 option( WIND_USE_SSE           "Use SSE CPU optimizations?"                             OFF )
 option( WIND_USE_NATIVE        "Use GCC native optimizations? (Only on GCC/Similar)"    OFF )
 
-set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type." FORCE )
+set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type.")
 set( CMAKE_DEBUG_POSTFIX "-d" )
 
 set( WIND_SHARE_DIR share/${CMAKE_PROJECT_NAME} )
@@ -116,6 +116,8 @@ set(
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/Partitioning.hpp
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/QuadTree.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/QuadTree.cpp
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/Grid.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Partitioning/Grid.cpp
 
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.cpp
