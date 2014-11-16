@@ -94,8 +94,6 @@ namespace wind
 			b->impulse_force += -direction*force;
 	}
 
-#include <iostream>
-
 	void Engine::apply_collisions()
 	{
 		if(!use_spatial_partitioning)
@@ -202,17 +200,12 @@ namespace wind
 
 	void Engine::integrate(std::shared_ptr<Entity> &entity, const StandardDuration &deltatime)
 	{
-		// entity->position += entity->minimum_translation;
-		// Vector2f acceleration = (entity->force+entity->impulse_force) / entity->mass;
-		// entity->velocity += acceleration*deltatime.count();
-		// entity->position += entity->velocity*deltatime.count();
-		// entity->minimum_translation = entity->impulse_force = {0.f, 0.f};
 		m_integration_func(*entity, deltatime);
 	}
 
-	void Engine::set_quadtree(std::shared_ptr<Partition> tree)
+	void Engine::set_partition_method(std::shared_ptr<Partition> method)
 	{
-		m_partition = tree;
+		m_partition = method;
 	}
 
 	void Engine::set_integrator(IntegrationFunction &func)

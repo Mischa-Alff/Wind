@@ -40,7 +40,7 @@ namespace wind
 		void add_entity(std::shared_ptr<Entity> entity);
 		void remove_entity(std::shared_ptr<Entity> entity);
 
-		void set_quadtree(std::shared_ptr<Partition> tree);
+		void set_partition_method(std::shared_ptr<Partition> tree);
 
 		void set_integrator(IntegrationFunction &func);
 
