@@ -123,6 +123,8 @@ set(
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/Shape.cpp
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/CircleShape.hpp
 	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/CircleShape.cpp
+	${INC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/RectangleShape.hpp
+	${SRC_DIR}/${CMAKE_PROJECT_NAME}/Engine/Shape/RectangleShape.cpp
 
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Maths/Vector2.hpp
 	${INC_DIR}/${CMAKE_PROJECT_NAME}/Maths/Vector2/Vector2.hpp

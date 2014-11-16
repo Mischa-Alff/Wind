@@ -11,7 +11,8 @@ namespace wind
 		enum Type
 		{
 			None,
-			Circle
+			Circle,
+			Rectangle
 		};
 
 	protected:
@@ -31,5 +32,6 @@ namespace wind
 }
 
 #include <Wind/Engine/Shape/CircleShape.hpp>
+#include <Wind/Engine/Shape/RectangleShape.hpp>
 
 #endif

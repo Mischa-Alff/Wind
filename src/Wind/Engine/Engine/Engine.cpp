@@ -185,6 +185,24 @@ namespace wind
 							}
 						}
 					}
+					else if(shape_a->type() == Shape::Rectangle)
+					{
+						if(shape_b->type() == Shape::Rectangle)
+						{
+							std::shared_ptr<RectangleShape> ra = std::static_pointer_cast<RectangleShape>(shape_a);
+							std::shared_ptr<RectangleShape> rb = std::static_pointer_cast<RectangleShape>(shape_b);
+							Vector2f old_velocity = a->velocity;
+							Vector2f old_velocity_col = b->velocity;
+
+							a->velocity = ((a->mass - b->mass)/(a->mass + b->mass)*old_velocity
+							             + (2.0*b->mass)/(a->mass+b->mass)*old_velocity_col);
+
+							b->velocity = ((b->mass - a->mass)/(a->mass + b->mass)*old_velocity_col
+							             + (2.0*a->mass)/(a->mass+b->mass)*old_velocity);
+
+							collision = true;
+						}
+					}
 				}
 			}
 		}
