@@ -12,7 +12,7 @@ namespace wind
 	class Grid : public Partition
 	{
 		public:
-			Vector2u node_size;
+			Vector2f node_size;
 			bool adjacent=false;
 		private:
 			std::vector<std::vector<std::vector<std::shared_ptr<Entity>>>> m_entities;
@@ -29,7 +29,7 @@ namespace wind
 			void get_entities_recursive(std::vector<std::shared_ptr<Entity>> &entities) const;
 			const std::vector<std::vector<std::vector<std::shared_ptr<Entity>>>> get_entity_vector() const;
 
-			Grid(const AABB &bounds={{0,0},{0,0}}, const Vector2u &node_size={1,1});
+			Grid(const AABB &bounds={{0,0},{0,0}}, const Vector2f &node_size={1,1});
 	};
 }
 #endif

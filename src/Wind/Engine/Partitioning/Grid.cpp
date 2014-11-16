@@ -66,7 +66,7 @@ namespace wind
 		return m_entities;
 	}
 
-	Grid::Grid(const AABB &bounds, const Vector2u &node_size)
+	Grid::Grid(const AABB &bounds, const Vector2f &node_size)
 	: node_size(node_size), m_bounds(bounds)
 	{
 		m_entities.resize(static_cast<int>((m_bounds.half_size.x*2)/node_size.x));
