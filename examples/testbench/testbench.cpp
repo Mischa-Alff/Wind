@@ -51,6 +51,8 @@ int main()
 
 	wind::Engine engine;
 	engine.gravity = false;
+	engine.use_minimum_translation_on_collision = false;
+	engine.use_partitioning_border_as_world_limit = true;
 
 	engine.set_integrator(wind::Integrators::RK4);
 
