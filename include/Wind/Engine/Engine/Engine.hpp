@@ -36,6 +36,8 @@ namespace wind
 	public:
 		bool gravity=true;
 		bool use_spatial_partitioning=false;
+		bool use_minimum_translation_on_collision=true;
+		bool use_partitioning_border_as_world_limit=true;
 
 		void add_entity(std::shared_ptr<Entity> entity);
 		void remove_entity(std::shared_ptr<Entity> entity);

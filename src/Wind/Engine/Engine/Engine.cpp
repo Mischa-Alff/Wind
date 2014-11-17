@@ -149,9 +149,9 @@ namespace wind
 				{
 					if(shape_a->type() == Shape::Circle)
 					{
+						std::shared_ptr<CircleShape> ca = std::static_pointer_cast<CircleShape>(shape_a);
 						if(shape_b->type() == Shape::Circle)
 						{
-							std::shared_ptr<CircleShape> ca = std::static_pointer_cast<CircleShape>(shape_a);
 							std::shared_ptr<CircleShape> cb = std::static_pointer_cast<CircleShape>(shape_b);
 
 							Vector2f tmp = a->position - b->position;
@@ -159,7 +159,7 @@ namespace wind
 							float sum_rad = ca->radius+cb->radius;
 							float sum_rad_pow2 = sum_rad * sum_rad;
 
-							if(tmp_len_pow2 < sum_rad_pow2)
+							if(use_minimum_translation_on_collision && tmp_len_pow2 < sum_rad_pow2)
 							{
 								float tmp_len = std::sqrt(tmp_len_pow2);
 								float minimum_translation_distance = sum_rad - tmp_len;
@@ -184,12 +184,41 @@ namespace wind
 								collision = true;
 							}
 						}
+
+						if(use_partitioning_border_as_world_limit)
+						{
+							float border;
+							if((border = m_partition->get_bounds().center.x-m_partition->get_bounds().half_size.x+ca->radius) >= a->position.x)
+							{
+								a->position.x = border;
+								a->velocity.x = -a->velocity.x;
+								collision = true;
+							}
+							else if((border = m_partition->get_bounds().center.x+m_partition->get_bounds().half_size.x-ca->radius) <= a->position.x)
+							{
+								a->position.x = border;
+								a->velocity.x = -a->velocity.x;
+								collision = true;
+							}
+							if((border = m_partition->get_bounds().center.y-m_partition->get_bounds().half_size.y+ca->radius) >= a->position.y)
+							{
+								a->position.y = border;
+								a->velocity.y = -a->velocity.y;
+								collision = true;
+							}
+							else if((border = m_partition->get_bounds().center.y+m_partition->get_bounds().half_size.y-ca->radius) <= a->position.y)
+							{
+								a->position.y = border;
+								a->velocity.y = -a->velocity.y;
+								collision = true;
+							}
+						}
 					}
 					else if(shape_a->type() == Shape::Rectangle)
 					{
+						std::shared_ptr<RectangleShape> ra = std::static_pointer_cast<RectangleShape>(shape_a);
 						if(shape_b->type() == Shape::Rectangle)
 						{
-							std::shared_ptr<RectangleShape> ra = std::static_pointer_cast<RectangleShape>(shape_a);
 							std::shared_ptr<RectangleShape> rb = std::static_pointer_cast<RectangleShape>(shape_b);
 							Vector2f old_velocity = a->velocity;
 							Vector2f old_velocity_col = b->velocity;
@@ -200,6 +229,112 @@ namespace wind
 							b->velocity = ((b->mass - a->mass)/(a->mass + b->mass)*old_velocity_col
 							             + (2.0*a->mass)/(a->mass+b->mass)*old_velocity);
 
+							collision = true;
+						}
+
+						if(use_partitioning_border_as_world_limit)
+						{
+							float border;
+							border = m_partition->get_bounds().center.x-m_partition->get_bounds().half_size.x+ra->get_AABB().half_size.x;
+							if(border >= a->position.x)
+							{
+								a->position.x = border;
+								a->velocity.x = -a->velocity.x;
+								collision = true;
+							}
+						
+							border = m_partition->get_bounds().center.x+m_partition->get_bounds().half_size.x-ra->get_AABB().half_size.x;							
+							if(border <= a->position.x)
+							{
+								a->position.x = border;
+								a->velocity.x = -a->velocity.x;
+								collision = true;
+							}
+						
+							border = m_partition->get_bounds().center.y-m_partition->get_bounds().half_size.y+ra->get_AABB().half_size.y;
+							if(border >= a->position.y)
+							{
+								a->position.y = border;
+								a->velocity.y = -a->velocity.y;
+								collision = true;
+							}
+						
+							border = m_partition->get_bounds().center.y+m_partition->get_bounds().half_size.y-ra->get_AABB().half_size.y;
+							if(border <= a->position.y)
+							{
+								a->position.y = border;
+								a->velocity.y = -a->velocity.y;
+								collision = true;
+							}
+						
+						}
+					}
+				}
+
+				if(use_partitioning_border_as_world_limit)
+				{
+					if(shape_a->type() == Shape::Rectangle)
+					{
+						std::shared_ptr<RectangleShape> ra = std::static_pointer_cast<RectangleShape>(shape_a);
+						float border;
+						border = m_partition->get_bounds().center.x-m_partition->get_bounds().half_size.x+ra->get_AABB().half_size.x;
+						if(border >= a->position.x)
+						{
+							a->position.x = border;
+							a->velocity.x = -a->velocity.x;
+							collision = true;
+						}
+					
+						border = m_partition->get_bounds().center.x+m_partition->get_bounds().half_size.x-ra->get_AABB().half_size.x;							
+						if(border <= a->position.x)
+						{
+							a->position.x = border;
+							a->velocity.x = -a->velocity.x;
+							collision = true;
+						}
+					
+						border = m_partition->get_bounds().center.y-m_partition->get_bounds().half_size.y+ra->get_AABB().half_size.y;
+						if(border >= a->position.y)
+						{
+							a->position.y = border;
+							a->velocity.y = -a->velocity.y;
+							collision = true;
+						}
+					
+						border = m_partition->get_bounds().center.y+m_partition->get_bounds().half_size.y-ra->get_AABB().half_size.y;
+						if(border <= a->position.y)
+						{
+							a->position.y = border;
+							a->velocity.y = -a->velocity.y;
+							collision = true;
+						}
+					}
+					else if(shape_a->type() == Shape::Circle)
+					{
+						std::shared_ptr<CircleShape> ca = std::static_pointer_cast<CircleShape>(shape_a);
+						float border;
+						if((border = m_partition->get_bounds().center.x-m_partition->get_bounds().half_size.x+ca->radius) >= a->position.x)
+						{
+							a->position.x = border;
+							a->velocity.x = -a->velocity.x;
+							collision = true;
+						}
+						else if((border = m_partition->get_bounds().center.x+m_partition->get_bounds().half_size.x-ca->radius) <= a->position.x)
+						{
+							a->position.x = border;
+							a->velocity.x = -a->velocity.x;
+							collision = true;
+						}
+						if((border = m_partition->get_bounds().center.y-m_partition->get_bounds().half_size.y+ca->radius) >= a->position.y)
+						{
+							a->position.y = border;
+							a->velocity.y = -a->velocity.y;
+							collision = true;
+						}
+						else if((border = m_partition->get_bounds().center.y+m_partition->get_bounds().half_size.y-ca->radius) <= a->position.y)
+						{
+							a->position.y = border;
+							a->velocity.y = -a->velocity.y;
 							collision = true;
 						}
 					}
